@@ -159,6 +159,10 @@ void CategoryNode::setContentSize(const CCSize& contentSize)
 {
     CCMenu::setContentSize(contentSize);
     layoutIsDirty = true;
+
+    if (!bg || !scroll || !scrollbar)
+        return;
+
     if (isVisible() && contentSize.width > 0 && contentSize.height > 0)
     {
         updateUILayout();
