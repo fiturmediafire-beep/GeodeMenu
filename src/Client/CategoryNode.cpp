@@ -85,7 +85,8 @@ bool CategoryNode::init()
     bg->setContentSize(getContentSize());
 
     scroll = qolmod::ScrollLayer::create(this->getContentSize());
-    scroll->setAnchorPoint(ccp(0.5f, 0));
+    scroll->ignoreAnchorPointForPosition(false);
+    scroll->setAnchorPoint(ccp(0, 0));
 
     scrollbar = BetterScrollbar::create(scroll);
     scrollbar->visit();
@@ -93,10 +94,12 @@ bool CategoryNode::init()
     scrollbar->setVisible(shouldScrollbarShow());
     scrollbar->setAnchorPoint(ccp(1, 0));
     scrollbar->setDisabled(true);
-    
+
     this->addChildAtPosition(bg, Anchor::Center);
-    this->addChildAtPosition(scroll, Anchor::Bottom);
+    this->addChildAtPosition(scroll, Anchor::BottomLeft);
     this->addChildAtPosition(scrollbar, Anchor::BottomRight);
+
+    layoutIsDirty = true;
     return true;
 }
 
